@@ -3,6 +3,14 @@
            https://api.github.com/users/<your name>
 */
 
+axios.get('/user?ID=60904383')
+  .then(res => {
+    console.log(res.data)
+    const newCard = createCards(res.data)
+    document.querySelector(".cards").appendChild(newCard)
+  })
+
+
 /* Step 2: Inspect and study the data coming back, this is YOUR 
    github info! You will need to understand the structure of this 
    data in order to use it to build your component function 
@@ -45,7 +53,54 @@ const followersArray = [];
 </div>
 
 */
+function createCards(object){
 
+  const userContainer = document.createElement("div")
+  const userImage = document.createElement("img")
+  const userInfo = document.createElement("div")
+  const userDisplayName = document.createElement("h3")
+  const userName = document.createElement("p")
+  const userLocation = document.createElement("p")
+  const userProfile = document.createElement("p")
+  const anchor = document.createElement("a")
+  const userFollowers = document.createElement("p")
+  const userFollowing = document.createElement("p")
+  const userBio = document.createElement("p")
+
+  //appending section
+  userContainer.append(image);
+  userContainer.append(info);
+  userInfo.append(name);
+  userInfo.append(username);
+  userInfo.append(location);
+  userInfo.append(profile);
+  userInfo.append(followers);
+  userInfo.append(following);
+  userInfo.append(bio);
+  userProfile.appendChild(anchor);
+
+  // adding classes here
+  userContainer.classList.add("card");
+  userInfo.classList.add("card-info");
+  userDisplayName.classList.add("name");
+  userName.classList.add("username");
+
+
+  //adding user info 
+  image.src = object.avatar_url
+  name.textContent = "Name: " + object.name
+  username.textContent = "Username: " + object.login
+  location.textContent = "Location: " + object.location
+  profile.href = "Profile: " + object.url
+  profile.textContent = object.url
+  followers.textContent = "Followers: " + object.followers
+  following.textContent = "Following: " + object.following
+  bio.textContent = "Bio: " + object.bio
+
+
+
+  return container
+}
 /* List of LS Instructors Github username's: 
   tetondan
   dustinmyers
